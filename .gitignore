@@ -1,0 +1,4 @@
+out/n1os-pinephone.img.xz
+out/boot/Image
+out/lib/
+out/u-boot*
