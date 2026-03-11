@@ -1,0 +1,41 @@
+# U-Boot configuration fragment for PinePhone
+# Applied on top of pinephone_defconfig
+
+# Boot behavior
+CONFIG_BOOTDELAY=0
+CONFIG_AUTOBOOT=y
+CONFIG_USE_BOOTCOMMAND=y
+
+# Boot from SD card first, then eMMC
+CONFIG_BOOTCOMMAND="run bootcmd_mmc0 || run bootcmd_mmc1"
+
+# Enable ext4 and fat for boot partition
+CONFIG_CMD_EXT4=y
+CONFIG_CMD_FAT=y
+CONFIG_FS_EXT4=y
+CONFIG_FS_FAT=y
+
+# USB gadget for debug
+CONFIG_USB_GADGET=y
+CONFIG_USB_MUSB_GADGET=y
+
+# Display (for boot logo)
+CONFIG_VIDEO=y
+CONFIG_VIDEO_DE2=y
+CONFIG_VIDEO_DSI_HOST_SANDBOX=n
+CONFIG_VIDEO_LCD_SSD2828=n
+CONFIG_VIDEO_LCD_HITACHI_TX18D42VM=n
+CONFIG_VIDEO_LCD_TL059WFPC0=n
+CONFIG_DM_VIDEO=y
+CONFIG_VIDEO_BMP_RLE8=y
+CONFIG_BMP_16BPP=y
+CONFIG_BMP_24BPP=y
+CONFIG_BMP_32BPP=y
+
+# FDT
+CONFIG_OF_LIBFDT=y
+CONFIG_OF_BOARD_SETUP=y
+
+# Compression for kernel
+CONFIG_LZ4=y
+CONFIG_ZSTD=y

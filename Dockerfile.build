@@ -1,0 +1,40 @@
+FROM --platform=linux/arm64 alpine:3.21
+
+LABEL maintainer="WOOSystems"
+LABEL description="N1OS build environment for PinePhone (Allwinner A64)"
+
+# Since M3 Mac is ARM64, we build natively — no cross-compilation needed!
+RUN apk add --no-cache \
+    # Core build tools
+    build-base make cmake ninja meson \
+    # Kernel build
+    bc bison flex elfutils-dev openssl-dev perl \
+    linux-headers ncurses-dev \
+    # U-Boot build
+    python3 py3-setuptools swig dtc u-boot-tools \
+    # ARM trusted firmware
+    git \
+    # Rootfs assembly
+    alpine-sdk apk-tools \
+    e2fsprogs dosfstools mtools parted util-linux \
+    # Compression
+    xz zstd lz4 gzip bzip2 \
+    # Misc
+    curl wget cpio findutils bash rsync kmod \
+    # Filesystem
+    squashfs-tools \
+    # Python for kernel/uboot scripts
+    python3-dev \
+    # Signing
+    openssl \
+    # Loop devices
+    losetup \
+    # Python libfdt bindings for U-Boot binman
+    py3-libfdt
+
+ENV N1OS_BUILD=/build
+ENV N1OS_OUT=/out
+
+RUN mkdir -p $N1OS_BUILD $N1OS_OUT /src
+
+WORKDIR /src
